@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lorem Ipsum Generator - Free Placeholder Text | Multi Tool Hub</title>
-    <meta name="description" content="Generate custom Lorem Ipsum placeholder text. Choose the number of paragraphs you need for your design mockups, websites, or print layouts.">
+    <title>Advanced Lorem Ipsum Generator (Words, Sentences, Paragraphs) | Multi Tool Hub</title>
+<meta name="description" content="Generate custom placeholder text. Choose to generate paragraphs, sentences, or words for your design mockups and websites.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,18 +22,29 @@
             margin-bottom: 1.5rem;
         }
         .input-group label {
-            flex-shrink: 0;
+            flex-shrink: 0; /* Prevents the label from shrinking */
             margin-bottom: 0;
         }
-        /* Style for the copy button to make it look secondary */
-        #copyBtn {
-            background: var(--card-bg) !important;
-            color: var(--text-muted-color) !important;
-            border: 1px solid var(--card-border) !important;
+        .result-container {
+            position: relative;
         }
-        #copyBtn:hover {
-            background: var(--interactive-bg-hover, #2a2a2a) !important;
-            color: var(--text-color) !important;
+        .result-container .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 0.5rem 0.75rem;
+            background-color: rgba(0,0,0,0.4);
+            color: var(--text-muted-color);
+            border: 1px solid var(--card-border);
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+        .result-container .copy-btn:hover {
+            background-color: var(--primary-glow);
+            color: var(--bg-color);
         }
     </style>
 </head>
@@ -56,10 +67,10 @@
                 
                 <button id="generateLoremBtn">Generate Text</button>
                 
-                <!-- NEW: Copy button placed right after the Generate button -->
-                <button id="copyBtn" style="margin-top: 1rem;">📋 Copy Generated Text</button>
-
-                <textarea id="loremResult" class="result-box" rows="12" readonly placeholder="Generated text will appear here..."></textarea>
+                <div class="result-container">
+                    <textarea id="loremResult" class="result-box" rows="12" readonly placeholder="Generated text will appear here..."></textarea>
+                    <button id="copyBtn" class="copy-btn">📋 Copy</button>
+                </div>
 
                 <div class="content-section">
                     <h2>What is Lorem Ipsum?</h2>
@@ -105,13 +116,10 @@
             });
 
             copyBtn.addEventListener('click', () => {
-                if (!resultBox.value) {
-                    alert("Please generate some text first!");
-                    return;
-                }
+                if (!resultBox.value) return;
                 navigator.clipboard.writeText(resultBox.value).then(() => {
-                    copyBtn.innerHTML = '✅ Copied!';
-                    setTimeout(() => { copyBtn.innerHTML = '📋 Copy Generated Text'; }, 2000);
+                    copyBtn.innerText = '✅ Copied!';
+                    setTimeout(() => { copyBtn.innerText = '📋 Copy'; }, 2000);
                 });
             });
         });
