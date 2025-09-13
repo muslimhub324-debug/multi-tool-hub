@@ -176,5 +176,30 @@ a { color: var(--primary-glow); text-decoration: none; }
     .header h1 { font-size: 2.5rem; }
     .tool-container { padding: 1.5rem; }
 }
-<script async="async" data-cfasync="false" src="//pl27637692.revenuecpmgate.com/3c2cfdcba58febfa73ec3e2acd4ca053/invoke.js"></script>
-<div id="container-3c2cfdcba58febfa73ec3e2acd4ca053"></div>
+/* --- Side Ads (Skyscraper) Styles --- */
+.tool-page-with-side-ads {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.tool-page-center {
+    max-width: 100vw; /* Takes up the full available width initially */
+    flex-grow: 1;
+}
+
+.side-ad {
+    width: 160px; /* Width of the 160x600 ad */
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    height: 600px; /* Height of the ad */
+    margin: 2rem 1rem;
+}
+
+/* Hide ads on smaller screens */
+@media (max-width: 1280px) {
+    .side-ad {
+        display: none;
+    }
+}
