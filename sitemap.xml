@@ -3,89 +3,89 @@
   
   <!-- Homepage -->
   <url>
-    <loc>https://your-site.netlify.app/</loc>
+    <loc>https://multi-tool-hub.netlify.app/</loc>
     <priority>1.0</priority>
   </url>
   
   <!-- Tool Pages -->
   <url>
-    <loc>https://your-site.netlify.app/tools/password-generator.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/password-generator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/bmi-calculator.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/bmi-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/word-counter.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/word-counter.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/case-converter.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/case-converter.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/json-formatter.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/json-formatter.html</loc>
     <priority>0.8</priority>
   </url>
    <url>
-    <loc>https://your-site.netlify.app/tools/qr-code-generator.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/qr-code-generator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/lorem-ipsum-generator.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/lorem-ipsum-generator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/image-to-base64.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/image-to-base64.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/color-converter.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/color-converter.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/md5-generator.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/md5-generator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/age-calculator.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/age-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/random-number-generator.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/random-number-generator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/url-encoder-decoder.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/url-encoder-decoder.html</loc>
     <priority>0.8</priority>
   </url>
    <url>
-    <loc>https://your-site.netlify.app/tools/base64-encoder-decoder.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/base64-encoder-decoder.html</loc>
     <priority>0.8</priority>
   </url>
    <url>
-    <loc>https://your-site.netlify.app/tools/text-to-slug.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/text-to-slug.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/duplicate-lines-remover.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/duplicate-lines-remover.html</loc>
     <priority>0.8</priority>
   </url>
    <url>
-    <loc>https://your-site.netlify.app/tools/image-compressor.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/image-compressor.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/tip-calculator.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/tip-calculator.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/countdown-timer.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/countdown-timer.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-site.netlify.app/tools/markdown-preview.html</loc>
+    <loc>https://multi-tool-hub.netlify.app/tools/markdown-preview.html</loc>
     <priority>0.8</priority>
   </url>
   
