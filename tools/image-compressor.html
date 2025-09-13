@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compressor (JPG, PNG) | Multi Tool Hub</title>
+    <meta name="description" content="Reduce the file size of your JPG and PNG images online for free. Our image compressor maintains high quality while significantly reducing size.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .upload-area {
+            border: 2px dashed var(--card-border); border-radius: 8px;
+            padding: 2rem; text-align: center; cursor: pointer;
+            transition: all 0.3s ease; margin-bottom: 1.5rem;
+        }
+        .upload-area:hover { border-color: var(--primary-glow); background-color: rgba(0,0,0,0.2); }
+        .upload-area i { font-size: 2.5rem; color: var(--primary-glow); margin-bottom: 1rem; }
+        #imageInput { display: none; }
+        .compression-info { display: flex; justify-content: space-around; margin-top: 1.5rem; }
+        .info-box { text-align: center; }
+        .info-box .label { color: var(--text-muted-color); }
+        .info-box .value { font-size: 1.5rem; font-weight: 700; color: var(--primary-glow); }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>Image Compressor</h3>
+                <label for="imageInput" class="upload-area" id="uploadArea">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <div><strong>Click to upload</strong> or drag and drop an image</div>
+                </label>
+                <input type="file" id="imageInput" accept="image/jpeg, image/png" />
+
+                <label for="qualitySlider">Compression Quality: <span id="qualityValue">80</span>%</label>
+                <input type="range" id="qualitySlider" min="10" max="100" value="80" style="width: 100%; margin-bottom: 1.5rem;">
+                
+                <button id="downloadBtn" style="display: none;">Download Compressed Image</button>
+
+                <div class="compression-info" id="compressionInfo" style="display: none;">
+                    <div class="info-box">
+                        <div class="label">Original Size</div>
+                        <div id="originalSize" class="value">0 KB</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Compressed Size</div>
+                        <div id="compressedSize" class="value">0 KB</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="label">Reduction</div>
+                        <div id="reduction" class="value">0%</div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Why Compress Images?</h2>
+                    <p>Large image files can significantly slow down your website's loading speed. By compressing images, you reduce their file size without a noticeable loss in quality, which leads to faster page loads, better user experience, and improved SEO.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- IMPORTANT: External library for image compression -->
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.1/dist/browser-image-compression.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ...
+
+            const imageInput = document.getElementById('imageInput');
+            const uploadArea = document.getElementById('uploadArea');
+            const qualitySlider = document.getElementById('qualitySlider');
+            const qualityValue = document.getElementById('qualityValue');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const compressionInfo = document.getElementById('compressionInfo');
+            const originalSizeEl = document.getElementById('originalSize');
+            const compressedSizeEl = document.getElementById('compressedSize');
+            const reductionEl = document.getElementById('reduction');
+            
+            let compressedFile = null;
+
+            uploadArea.addEventListener('click', () => imageInput.click());
+            qualitySlider.addEventListener('input', (e) => qualityValue.textContent = e.target.value);
+            
+            imageInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    handleImage(file);
+                }
+            });
+
+            downloadBtn.addEventListener('click', () => {
+                if (compressedFile) {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(compressedFile);
+                    link.download = `compressed_${compressedFile.name}`;
+                    link.click();
+                }
+            });
+
+            async function handleImage(file) {
+                const quality = qualitySlider.value / 100;
+                const options = {
+                    maxSizeMB: 1,
+                    maxWidthOrHeight: 1920,
+                    useWebWorker: true,
+                    initialQuality: quality
+                }
+                try {
+                    const originalSizeKB = (file.size / 1024).toFixed(2);
+                    originalSizeEl.textContent = `${originalSizeKB} KB`;
+
+                    compressedFile = await imageCompression(file, options);
+                    const compressedSizeKB = (compressedFile.size / 1024).toFixed(2);
+                    compressedSizeEl.textContent = `${compressedSizeKB} KB`;
+
+                    const reductionPercent = (((originalSizeKB - compressedSizeKB) / originalSizeKB) * 100).toFixed(0);
+                    reductionEl.textContent = `${reductionPercent}%`;
+                    
+                    compressionInfo.style.display = 'flex';
+                    downloadBtn.style.display = 'block';
+
+                } catch (error) {
+                    console.error(error);
+                    alert('Error during compression: ' + error.message);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

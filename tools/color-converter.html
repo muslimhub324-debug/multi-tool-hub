@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Converter (HEX, RGB, HSL) | Multi Tool Hub</title>
+    <meta name="description" content="Convert colors between HEX, RGB, and HSL formats instantly. Use the color picker or enter a code to see live previews and get conversions.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .color-picker-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        #colorPicker {
+            width: 60px;
+            height: 60px;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            background-color: transparent;
+            border-radius: 8px;
+        }
+        .input-group {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>Color Converter</h3>
+                <div class="color-picker-wrapper">
+                    <input type="color" id="colorPicker" value="#ffd700">
+                    <p>Use the color picker or enter a value below to convert.</p>
+                </div>
+                <div class="input-group">
+                    <label for="hexInput">HEX</label>
+                    <input type="text" id="hexInput" placeholder="#FFD700">
+                </div>
+                <div class="input-group">
+                    <label for="rgbInput">RGB</label>
+                    <input type="text" id="rgbInput" placeholder="rgb(255, 215, 0)">
+                </div>
+                <div class="input-group">
+                    <label for="hslInput">HSL</label>
+                    <input type="text" id="hslInput" placeholder="hsl(51, 100%, 50%)">
+                </div>
+                <div class="content-section">
+                    <h2>About Color Codes</h2>
+                    <p>HEX, RGB, and HSL are different ways to represent colors in digital design. This tool helps you seamlessly switch between these formats, which is essential for web development and graphic design.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ... (Insert background animation script here if needed, or assume it's loaded)
+
+            const colorPicker = document.getElementById('colorPicker');
+            const hexInput = document.getElementById('hexInput');
+            const rgbInput = document.getElementById('rgbInput');
+            const hslInput = document.getElementById('hslInput');
+
+            function updateColors(source, value) {
+                let hex, rgb, hsl;
+                if (source === 'picker' || source === 'hex') {
+                    hex = value;
+                    rgb = hexToRgb(hex);
+                    hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+                } else if (source === 'rgb') {
+                    const match = value.match(/(\d+),\s*(\d+),\s*(\d+)/);
+                    if (!match) return;
+                    rgb = { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) };
+                    hex = rgbToHex(rgb.r, rgb.g, rgb.b);
+                    hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+                } else if (source === 'hsl') {
+                    const match = value.match(/(\d+),\s*(\d+)%?,\s*(\d+)%?/);
+                    if (!match) return;
+                    hsl = { h: parseInt(match[1]), s: parseInt(match[2]), l: parseInt(match[3]) };
+                    rgb = hslToRgb(hsl.h, hsl.s, hsl.l);
+                    hex = rgbToHex(rgb.r, rgb.g, rgb.b);
+                }
+
+                if (source !== 'picker') colorPicker.value = hex;
+                if (source !== 'hex') hexInput.value = hex.toUpperCase();
+                if (source !== 'rgb') rgbInput.value = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+                if (source !== 'hsl') hslInput.value = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+            }
+
+            colorPicker.addEventListener('input', (e) => updateColors('picker', e.target.value));
+            hexInput.addEventListener('input', (e) => updateColors('hex', e.target.value));
+            rgbInput.addEventListener('input', (e) => updateColors('rgb', e.target.value));
+            hslInput.addEventListener('input', (e) => updateColors('hsl', e.target.value));
+            
+            // Initial load
+            updateColors('picker', '#ffd700');
+
+            // --- Conversion Functions ---
+            function hexToRgb(hex) {
+                let r = 0, g = 0, b = 0;
+                if (hex.length == 4) {
+                    r = "0x" + hex[1] + hex[1];
+                    g = "0x" + hex[2] + hex[2];
+                    b = "0x" + hex[3] + hex[3];
+                } else if (hex.length == 7) {
+                    r = "0x" + hex[1] + hex[2];
+                    g = "0x" + hex[3] + hex[4];
+                    b = "0x" + hex[5] + hex[6];
+                }
+                return { r: +r, g: +g, b: +b };
+            }
+            function rgbToHex(r, g, b) {
+                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            }
+            function rgbToHsl(r, g, b) {
+                r /= 255; g /= 255; b /= 255;
+                let max = Math.max(r, g, b), min = Math.min(r, g, b);
+                let h, s, l = (max + min) / 2;
+                if (max == min) {
+                    h = s = 0;
+                } else {
+                    let d = max - min;
+                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                    switch (max) {
+                        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                        case g: h = (b - r) / d + 2; break;
+                        case b: h = (r - g) / d + 4; break;
+                    }
+                    h /= 6;
+                }
+                return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+            }
+            function hslToRgb(h, s, l) {
+                s /= 100; l /= 100;
+                let c = (1 - Math.abs(2 * l - 1)) * s,
+                    x = c * (1 - Math.abs((h / 60) % 2 - 1)),
+                    m = l - c / 2,
+                    r = 0, g = 0, b = 0;
+                if (0 <= h && h < 60) { r = c; g = x; b = 0; }
+                else if (60 <= h && h < 120) { r = x; g = c; b = 0; }
+                else if (120 <= h && h < 180) { r = 0; g = c; b = x; }
+                else if (180 <= h && h < 240) { r = 0; g = x; b = c; }
+                else if (240 <= h && h < 300) { r = x; g = 0; b = c; }
+                else if (300 <= h && h < 360) { r = c; g = 0; b = x; }
+                r = Math.round((r + m) * 255);
+                g = Math.round((g + m) * 255);
+                b = Math.round((b + m) * 255);
+                return { r, g, b };
+            }
+        });
+    </script>
+</body>
+</html>

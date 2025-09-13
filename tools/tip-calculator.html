@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator | Multi Tool Hub</title>
+    <meta name="description" content="Quickly calculate the tip and total amount for your bill. Adjust the bill amount, tip percentage, and number of people to split the bill.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .result-display {
+            background-color: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .result-item:last-child { border-bottom: none; }
+        .result-item .label { color: var(--text-muted-color); }
+        .result-item .value { font-size: 1.8rem; font-weight: 700; color: var(--primary-glow); }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>Tip Calculator</h3>
+                <label for="billAmount">Bill Amount ($)</label>
+                <input type="number" id="billAmount" placeholder="e.g., 50.00">
+                
+                <label for="tipPercentage">Tip Percentage: <span id="tipValue">15</span>%</label>
+                <input type="range" id="tipPercentage" min="0" max="100" value="15" style="width: 100%;">
+
+                <label for="numPeople">Number of People</label>
+                <input type="number" id="numPeople" value="1" min="1">
+
+                <div class="result-display">
+                    <div class="result-item">
+                        <span class="label">Tip Amount</span>
+                        <span id="tipAmount" class="value">$0.00</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Total Amount</span>
+                        <span id="totalAmount" class="value">$0.00</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Amount Per Person</span>
+                        <span id="amountPerPerson" class="value">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Easy Tipping</h2>
+                    <p>Our tip calculator makes it easy to figure out how much to tip at restaurants or for services. Adjust the tip percentage to your liking and even split the bill among friends with just a few clicks.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ...
+            
+            const billInput = document.getElementById('billAmount');
+            const tipInput = document.getElementById('tipPercentage');
+            const tipValueEl = document.getElementById('tipValue');
+            const peopleInput = document.getElementById('numPeople');
+            
+            const tipAmountEl = document.getElementById('tipAmount');
+            const totalAmountEl = document.getElementById('totalAmount');
+            const perPersonEl = document.getElementById('amountPerPerson');
+
+            function calculateTip() {
+                const bill = parseFloat(billInput.value) || 0;
+                const tipPercent = parseInt(tipInput.value);
+                const people = parseInt(peopleInput.value) || 1;
+
+                if (bill < 0) return;
+
+                tipValueEl.textContent = tipPercent;
+
+                const tipAmount = bill * (tipPercent / 100);
+                const totalAmount = bill + tipAmount;
+                const amountPerPerson = totalAmount / people;
+
+                tipAmountEl.textContent = `$${tipAmount.toFixed(2)}`;
+                totalAmountEl.textContent = `$${totalAmount.toFixed(2)}`;
+                perPersonEl.textContent = `$${amountPerPerson.toFixed(2)}`;
+            }
+
+            billInput.addEventListener('input', calculateTip);
+            tipInput.addEventListener('input', calculateTip);
+            peopleInput.addEventListener('input', calculateTip);
+
+            // Initial calculation
+            calculateTip();
+        });
+    </script>
+</body>
+</html>

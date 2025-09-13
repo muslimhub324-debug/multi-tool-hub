@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Formatter & Validator | Multi Tool Hub</title>
+    <meta name="description" content="Format, validate, beautify, and minify your JSON data instantly. Our free tool helps developers to read, write, and debug JSON with ease.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- Custom styles for this tool's specific elements -->
+    <style>
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .button-group button {
+            flex-grow: 1; /* Make buttons take equal space */
+        }
+        /* Style for secondary buttons like Minify and Clear */
+        .button-secondary {
+            background: var(--card-bg) !important;
+            color: var(--text-muted-color) !important;
+            border: 1px solid var(--card-border) !important;
+        }
+        .button-secondary:hover {
+            background: var(--interactive-bg-hover) !important;
+            color: var(--text-color) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+
+        <main class="container">
+            <div class="tool-container">
+                <h3>JSON Formatter & Validator</h3>
+                <label for="jsonInput">Paste your JSON code here:</label>
+                <textarea id="jsonInput" rows="12" placeholder='{"key": "value", "isValid": true}' style="font-family: 'Courier New', Courier, monospace;"></textarea>
+                
+                <div class="button-group">
+                    <button id="formatJsonBtn">Beautify JSON</button>
+                    <button id="minifyJsonBtn" class="button-secondary">Minify JSON</button>
+                </div>
+                 <div class="button-group">
+                    <button id="copyBtn" class="button-secondary">📋 Copy</button>
+                    <button id="clearBtn" class="button-secondary">❌ Clear</button>
+                </div>
+
+                <div class="result-box" id="jsonResult">Validation status will appear here.</div>
+
+                <div class="content-section">
+                    <h2>What is JSON?</h2>
+                    <p>JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write and easy for machines to parse and generate. This tool helps make messy JSON code readable, validates its structure, and can also compress it for production use.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation Script
+            const backgroundAnimation = document.getElementById('background-animation');
+            const icons = ['fa-solid fa-key', 'fa-solid fa-calculator', 'fa-solid fa-file-word', 'fa-solid fa-font', 'fa-solid fa-code', 'fa-solid fa-qrcode', 'fa-solid fa-paragraph', 'fa-solid fa-image'];
+            for (let i = 0; i < 20; i++) {
+                const iconEl = document.createElement('i');
+                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                iconEl.className = `icon ${randomIcon}`;
+                iconEl.style.left = `${Math.random() * 100}vw`;
+                iconEl.style.animationDuration = `${15 + Math.random() * 15}s`;
+                iconEl.style.animationDelay = `${Math.random() * 10}s`;
+                backgroundAnimation.appendChild(iconEl);
+            }
+
+            // JSON Formatter Specific Logic
+            const formatBtn = document.getElementById('formatJsonBtn');
+            const minifyBtn = document.getElementById('minifyJsonBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const jsonInput = document.getElementById('jsonInput');
+            const resultDiv = document.getElementById('jsonResult');
+
+            function validateAndParse(input) {
+                try {
+                    const parsed = JSON.parse(input);
+                    resultDiv.innerText = 'JSON is valid!';
+                    resultDiv.style.color = '#76ff03'; // Green for success
+                    return parsed;
+                } catch (e) {
+                    resultDiv.innerText = `Invalid JSON: ${e.message}`;
+                    resultDiv.style.color = '#ff4d4d'; // Red for error
+                    return null;
+                }
+            }
+            
+            formatBtn.addEventListener('click', () => {
+                const parsed = validateAndParse(jsonInput.value);
+                if (parsed) {
+                    jsonInput.value = JSON.stringify(parsed, null, 4); // 4 spaces for indentation
+                }
+            });
+
+            minifyBtn.addEventListener('click', () => {
+                const parsed = validateAndParse(jsonInput.value);
+                if (parsed) {
+                    jsonInput.value = JSON.stringify(parsed); // No spaces
+                }
+            });
+            
+            clearBtn.addEventListener('click', () => {
+                jsonInput.value = '';
+                resultDiv.innerText = 'Validation status will appear here.';
+                resultDiv.style.color = '';
+            });
+
+            copyBtn.addEventListener('click', () => {
+                if (!jsonInput.value) return;
+                navigator.clipboard.writeText(jsonInput.value).then(() => {
+                    copyBtn.innerHTML = '✅ Copied!';
+                    setTimeout(() => { copyBtn.innerHTML = '📋 Copy'; }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Encoder & Decoder | Multi Tool Hub</title>
+    <meta name="description" content="Quickly encode plain text to a Base64 string or decode a Base64 string back to its original plain text. A must-have tool for developers.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .swap-button {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        .swap-button button {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--primary-glow);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .swap-button button:hover {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>Base64 Encoder & Decoder</h3>
+                <label for="inputBase64">Input:</label>
+                <textarea id="inputBase64" rows="6" placeholder="Enter plain text or Base64 string..."></textarea>
+                
+                <div class="button-group">
+                    <button id="encodeBtn">Encode to Base64</button>
+                    <button id="decodeBtn">Decode from Base64</button>
+                </div>
+
+                <div class="swap-button">
+                    <button id="swapBtn" title="Swap Input/Output">↑↓</button>
+                </div>
+                
+                <label for="outputBase64">Output:</label>
+                <textarea id="outputBase64" class="result-box" rows="6" readonly></textarea>
+
+                <div class="content-section">
+                    <h2>What is Base64 Encoding?</h2>
+                    <p>Base64 is an encoding scheme that represents binary data in an ASCII string format by translating it into a radix-64 representation. It's commonly used to embed binary data, like images or files, in text-based formats such as HTML, CSS, or JSON.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ...
+            
+            const inputEl = document.getElementById('inputBase64');
+            const outputEl = document.getElementById('outputBase64');
+            const encodeBtn = document.getElementById('encodeBtn');
+            const decodeBtn = document.getElementById('decodeBtn');
+            const swapBtn = document.getElementById('swapBtn');
+
+            encodeBtn.addEventListener('click', () => {
+                try {
+                    outputEl.value = btoa(inputEl.value);
+                } catch(e) {
+                    outputEl.value = 'Error during encoding: ' + e.message;
+                }
+            });
+            
+            decodeBtn.addEventListener('click', () => {
+                try {
+                    outputEl.value = atob(inputEl.value);
+                } catch(e) {
+                    outputEl.value = 'Error: Invalid Base64 string. ' + e.message;
+                }
+            });
+
+            swapBtn.addEventListener('click', () => {
+                const temp = inputEl.value;
+                inputEl.value = outputEl.value;
+                outputEl.value = temp;
+            });
+        });
+    </script>
+</body>
+</html>

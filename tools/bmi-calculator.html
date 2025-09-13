@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO for BMI Calculator -->
+    <title>Free BMI Calculator - Check Your Body Mass Index | Multi Tool Hub</title>
+    <meta name="description" content="Use our free online BMI calculator to check your Body Mass Index. Enter your height and weight to find out if you are in a healthy weight range.">
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1><a href="/">Multi Tool Hub</a></h1>
+        <p>Your one-stop collection of free online utilities</p>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h3>BMI Calculator</h3>
+            <label for="heightCm">Height (cm):</label>
+            <input type="number" id="heightCm" placeholder="e.g., 175" />
+            <label for="weightKg">Weight (kg):</label>
+            <input type="number" id="weightKg" placeholder="e.g., 70" />
+            <button id="calculateBmiBtn">Calculate BMI</button>
+            <div class="result-box" id="bmiResult">Your BMI will appear here.</div>
+            
+            <!-- SEO Content Section -->
+            <div class="content-section">
+                <h2>Understanding Your BMI</h2>
+                <p>The Body Mass Index (BMI) is a measure that uses your height and weight to work out if your weight is healthy. It's a useful tool for adults to get a general idea of their weight status.</p>
+                <h3>BMI Ranges for Adults:</h3>
+                <ul>
+                    <li><strong>Below 18.5:</strong> Underweight</li>
+                    <li><strong>18.5 – 24.9:</strong> Healthy Weight</li>
+                    <li><strong>25.0 – 29.9:</strong> Overweight</li>
+                    <li><strong>30.0 and Above:</strong> Obesity</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // This JavaScript is ONLY for the BMI Calculator tool
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('calculateBmiBtn').addEventListener('click', () => {
+                const height = parseFloat(document.getElementById('heightCm').value);
+                const weight = parseFloat(document.getElementById('weightKg').value);
+                const resultDiv = document.getElementById('bmiResult');
+                if (height > 0 && weight > 0) {
+                    const bmi = (weight / ((height / 100) ** 2)).toFixed(2);
+                    let category = '';
+                    if (bmi < 18.5) category = 'Underweight';
+                    else if (bmi < 24.9) category = 'Healthy Weight';
+                    else if (bmi < 29.9) category = 'Overweight';
+                    else category = 'Obesity';
+                    resultDiv.innerText = `Your BMI is ${bmi} (${category}).`;
+                } else {
+                    resultDiv.innerText = 'Please enter valid height and weight.';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator | Multi Tool Hub</title>
+    <meta name="description" content="Generate a random number within a custom range. Set your minimum and maximum values to get a random integer instantly.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .range-inputs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .range-inputs > div {
+            flex: 1;
+        }
+        .random-result {
+            font-size: 4rem;
+            font-weight: 800;
+            text-align: center;
+            color: var(--primary-glow);
+            padding: 2rem;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>Random Number Generator</h3>
+                <div class="range-inputs">
+                    <div>
+                        <label for="minVal">Minimum Value</label>
+                        <input type="number" id="minVal" value="1">
+                    </div>
+                    <div>
+                        <label for="maxVal">Maximum Value</label>
+                        <input type="number" id="maxVal" value="100">
+                    </div>
+                </div>
+                <button id="generateBtn">Generate Number</button>
+                <div class="result-box" style="text-align: center;">
+                    <div id="randomNumberResult" class="random-result">?</div>
+                </div>
+                <div class="content-section">
+                    <h2>How It Works</h2>
+                    <p>This tool generates a pseudo-random integer within your specified inclusive range (from minimum to maximum). Simply set the range and click the button to get a new random number.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ...
+            
+            const minInput = document.getElementById('minVal');
+            const maxInput = document.getElementById('maxVal');
+            const generateBtn = document.getElementById('generateBtn');
+            const resultEl = document.getElementById('randomNumberResult');
+
+            generateBtn.addEventListener('click', () => {
+                const min = parseInt(minInput.value);
+                const max = parseInt(maxInput.value);
+
+                if (isNaN(min) || isNaN(max)) {
+                    resultEl.textContent = 'Error';
+                    alert('Please enter valid numbers.');
+                    return;
+                }
+                
+                if (min >= max) {
+                    resultEl.textContent = 'Error';
+                    alert('Minimum value must be less than the maximum value.');
+                    return;
+                }
+
+                const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+                resultEl.textContent = randomNumber;
+            });
+        });
+    </script>
+</body>
+</html>

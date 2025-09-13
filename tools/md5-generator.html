@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD5 Hash Generator | Multi Tool Hub</title>
+    <meta name="description" content="Generate the MD5 hash of any string or text for data integrity checks and security purposes. Fast, easy, and client-side.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .button-group { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .button-group button { flex-grow: 1; }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>MD5 Hash Generator</h3>
+                <label for="textInput">Enter your text:</label>
+                <textarea id="textInput" rows="8" placeholder="Paste your text here..."></textarea>
+                <div class="button-group">
+                    <button id="copyBtn">📋 Copy Hash</button>
+                    <button id="clearBtn" class="button-secondary">❌ Clear</button>
+                </div>
+                <label for="md5Result">MD5 Hash Output:</label>
+                <input type="text" id="md5Result" class="result-box" readonly>
+                <div class="content-section">
+                    <h2>What is MD5?</h2>
+                    <p>MD5 (Message-Digest Algorithm 5) is a widely used cryptographic hash function that produces a 128-bit (16-byte) hash value. It is commonly used to verify data integrity but is no longer considered secure for cryptographic purposes like password storage.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- IMPORTANT: CryptoJS library for MD5 generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ...
+
+            const textInput = document.getElementById('textInput');
+            const md5Result = document.getElementById('md5Result');
+            const copyBtn = document.getElementById('copyBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            
+            textInput.addEventListener('input', () => {
+                const text = textInput.value;
+                if (text) {
+                    const hash = CryptoJS.MD5(text).toString();
+                    md5Result.value = hash;
+                } else {
+                    md5Result.value = '';
+                }
+            });
+
+            clearBtn.addEventListener('click', () => {
+                textInput.value = '';
+                md5Result.value = '';
+            });
+
+            copyBtn.addEventListener('click', () => {
+                if (!md5Result.value) {
+                    alert("Please generate a hash first!");
+                    return;
+                }
+                navigator.clipboard.writeText(md5Result.value).then(() => {
+                    copyBtn.innerHTML = '✅ Copied!';
+                    setTimeout(() => { copyBtn.innerHTML = '📋 Copy Hash'; }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

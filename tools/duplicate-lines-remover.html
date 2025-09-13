@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duplicate Lines Remover | Multi Tool Hub</title>
+    <meta name="description" content="Easily remove duplicate lines from any text or list. Paste your text to get a clean list with only unique lines instantly.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .button-group { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .text-stats { margin-top: 0.5rem; color: var(--text-muted-color); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>Duplicate Lines Remover</h3>
+                <label for="inputLines">Paste your text/list here:</label>
+                <textarea id="inputLines" rows="10" placeholder="Line 1&#10;Line 2&#10;Line 1"></textarea>
+                <div id="lineStats" class="text-stats">Original Lines: 0 | Unique Lines: 0</div>
+                
+                <button id="removeDuplicatesBtn" style="margin-top: 1rem;">Remove Duplicates</button>
+                
+                <div class="button-group">
+                    <button id="copyBtn" class="button-secondary">📋 Copy Result</button>
+                    <button id="clearBtn" class="button-secondary">❌ Clear</button>
+                </div>
+                
+                <div class="content-section">
+                    <h2>How It Works</h2>
+                    <p>This tool processes your input text line by line and removes any exact duplicates, leaving you with a clean list of unique lines. It is case-sensitive, meaning "Apple" and "apple" are treated as different lines.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ...
+            
+            const inputEl = document.getElementById('inputLines');
+            const removeBtn = document.getElementById('removeDuplicatesBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const statsEl = document.getElementById('lineStats');
+
+            function updateStats() {
+                const lines = inputEl.value.split('\n').filter(line => line.trim() !== '');
+                const uniqueLines = [...new Set(lines)];
+                statsEl.textContent = `Original Lines: ${lines.length} | Unique Lines: ${uniqueLines.length}`;
+            }
+
+            inputEl.addEventListener('input', updateStats);
+
+            removeBtn.addEventListener('click', () => {
+                const lines = inputEl.value.split('\n');
+                const uniqueLines = [...new Set(lines)];
+                inputEl.value = uniqueLines.join('\n');
+                updateStats();
+            });
+
+            clearBtn.addEventListener('click', () => {
+                inputEl.value = '';
+                updateStats();
+            });
+            
+            copyBtn.addEventListener('click', () => {
+                if (!inputEl.value) return;
+                navigator.clipboard.writeText(inputEl.value).then(() => {
+                    copyBtn.innerHTML = '✅ Copied!';
+                    setTimeout(() => { copyBtn.innerHTML = '📋 Copy Result'; }, 2000);
+                });
+            });
+
+            // Initial stat update
+            updateStats();
+        });
+    </script>
+</body>
+</html>

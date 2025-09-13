@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator - Calculate Your Age in Years, Months, Days | Multi Tool Hub</title>
+    <meta name="description" content="Find out your exact age in years, months, and days with our easy-to-use age calculator. Simply enter your date of birth to get the result instantly.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .result-item {
+            background-color: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+        }
+        .result-item .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-glow);
+        }
+        .result-item .label {
+            font-size: 1rem;
+            color: var(--text-muted-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>Age Calculator</h3>
+                <label for="birthDate">Enter your Date of Birth:</label>
+                <input type="date" id="birthDate" style="padding: 0.8rem;" />
+                <button id="calculateAgeBtn">Calculate Age</button>
+
+                <div id="ageResultGrid" class="result-grid" style="display: none;">
+                    <div class="result-item">
+                        <div id="years" class="value">0</div>
+                        <div class="label">Years</div>
+                    </div>
+                    <div class="result-item">
+                        <div id="months" class="value">0</div>
+                        <div class="label">Months</div>
+                    </div>
+                    <div class="result-item">
+                        <div id="days" class="value">0</div>
+                        <div class="label">Days</div>
+                    </div>
+                </div>
+                <div class="result-box" id="errorMessage" style="display: none;"></div>
+
+                <div class="content-section">
+                    <h2>How Does the Age Calculator Work?</h2>
+                    <p>Our age calculator determines your age by subtracting your birth date from the current date. It accurately calculates the total years, months, and days that have passed since you were born, accounting for leap years and varying month lengths.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ... (Insert your background animation script here)
+
+            const birthDateInput = document.getElementById('birthDate');
+            const calculateBtn = document.getElementById('calculateAgeBtn');
+            const resultGrid = document.getElementById('ageResultGrid');
+            const errorMessage = document.getElementById('errorMessage');
+
+            const yearsEl = document.getElementById('years');
+            const monthsEl = document.getElementById('months');
+            const daysEl = document.getElementById('days');
+
+            calculateBtn.addEventListener('click', () => {
+                const birthDateVal = birthDateInput.value;
+                if (!birthDateVal) {
+                    errorMessage.textContent = 'Please select a valid date of birth.';
+                    errorMessage.style.display = 'block';
+                    resultGrid.style.display = 'none';
+                    return;
+                }
+
+                const birthDate = new Date(birthDateVal);
+                const today = new Date();
+
+                if (birthDate > today) {
+                    errorMessage.textContent = 'Date of birth cannot be in the future.';
+                    errorMessage.style.display = 'block';
+                    resultGrid.style.display = 'none';
+                    return;
+                }
+
+                let years = today.getFullYear() - birthDate.getFullYear();
+                let months = today.getMonth() - birthDate.getMonth();
+                let days = today.getDate() - birthDate.getDate();
+
+                if (days < 0) {
+                    months--;
+                    const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                    days += prevMonth.getDate();
+                }
+
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+                
+                yearsEl.textContent = years;
+                monthsEl.textContent = months;
+                daysEl.textContent = days;
+
+                errorMessage.style.display = 'none';
+                resultGrid.style.display = 'grid';
+            });
+        });
+    </script>
+</body>
+</html>

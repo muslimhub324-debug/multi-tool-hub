@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Word & Character Counter Tool | Multi Tool Hub</title>
+    <meta name="description" content="Count words, characters, sentences, paragraphs, and estimate reading time in real-time. A perfect free tool for writers, students, and SEO professionals.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    <!-- Custom styles for this tool's specific elements -->
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .stat-item {
+            background-color: var(--bg-color);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+        }
+        .stat-item .label { font-size: 0.9rem; color: var(--text-muted-color); }
+        .stat-item .value { font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
+        .button-group { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .button-group button { flex-grow: 1; }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+
+        <main class="container">
+            <div class="tool-container">
+                <h3>Word & Character Counter</h3>
+                <label for="textInput">Enter your text below:</label>
+                <textarea id="textInput" placeholder="Paste your text here..." rows="10"></textarea>
+                
+                <div class="button-group">
+                    <button id="copyBtn">📋 Copy Text</button>
+                    <button id="clearBtn" style="background: var(--card-bg); color: var(--text-muted-color);">❌ Clear Text</button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item"><div class="label">Words</div><div id="word-count" class="value">0</div></div>
+                    <div class="stat-item"><div class="label">Characters</div><div id="char-count" class="value">0</div></div>
+                    <div class="stat-item"><div class="label">Sentences</div><div id="sentence-count" class="value">0</div></div>
+                    <div class="stat-item"><div class="label">Paragraphs</div><div id="paragraph-count" class="value">0</div></div>
+                    <div class="stat-item"><div class="label">Reading Time</div><div id="reading-time" class="value">~0 min</div></div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Why Use a Word Counter?</h2>
+                    <p>Whether you're a student writing an essay, a blogger crafting a post, or a professional preparing a report, our tool gives you an instant and accurate count of words, characters, sentences, paragraphs, and even estimates the reading time.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Background Animation Script (Shared)
+            const backgroundAnimation = document.getElementById('background-animation');
+            const icons = ['fa-solid fa-key', 'fa-solid fa-calculator', 'fa-solid fa-file-word', 'fa-solid fa-font', 'fa-solid fa-code', 'fa-solid fa-qrcode', 'fa-solid fa-paragraph', 'fa-solid fa-image'];
+            for (let i = 0; i < 20; i++) {
+                const iconEl = document.createElement('i');
+                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                iconEl.className = `icon ${randomIcon}`;
+                iconEl.style.left = `${Math.random() * 100}vw`;
+                iconEl.style.animationDuration = `${15 + Math.random() * 15}s`;
+                iconEl.style.animationDelay = `${Math.random() * 10}s`;
+                backgroundAnimation.appendChild(iconEl);
+            }
+
+            // Word Counter Specific Logic
+            const textInput = document.getElementById('textInput');
+            const copyBtn = document.getElementById('copyBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const wordCountEl = document.getElementById('word-count');
+            const charCountEl = document.getElementById('char-count');
+            const sentenceCountEl = document.getElementById('sentence-count');
+            const paragraphCountEl = document.getElementById('paragraph-count');
+            const readingTimeEl = document.getElementById('reading-time');
+            const WORDS_PER_MINUTE = 200;
+
+            textInput.addEventListener('input', updateStats);
+            clearBtn.addEventListener('click', () => { textInput.value = ''; updateStats(); });
+            copyBtn.addEventListener('click', () => {
+                if (!textInput.value) return;
+                navigator.clipboard.writeText(textInput.value).then(() => {
+                    copyBtn.innerText = '✅ Copied!';
+                    setTimeout(() => { copyBtn.innerText = '📋 Copy Text'; }, 2000);
+                });
+            });
+
+            function updateStats() {
+                const text = textInput.value;
+                if (text.trim() === '') {
+                    updateAllStats(0, 0, 0, 0, 0); return;
+                }
+                const words = text.match(/\b\w+\b/g)?.length || 0;
+                const characters = text.length;
+                const sentences = text.match(/[^.!?]+[.!?]+|\s*$/g)?.filter(s => s.trim().length > 0).length || 0;
+                const paragraphs = text.split(/\n+/).filter(p => p.trim() !== '').length;
+                const readingTime = Math.ceil(words / WORDS_PER_MINUTE);
+                updateAllStats(words, characters, sentences, paragraphs, readingTime);
+            }
+            function updateAllStats(words, chars, sentences, paras, readTime) {
+                wordCountEl.innerText = words; charCountEl.innerText = chars;
+                sentenceCountEl.innerText = sentences; paragraphCountEl.innerText = paras;
+                readingTimeEl.innerText = `~${readTime} min`;
+            }
+        });
+    </script>
+</body>
+</html>

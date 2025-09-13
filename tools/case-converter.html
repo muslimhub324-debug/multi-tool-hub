@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Online Case Converter Tool | Multi Tool Hub</title>
+    <meta name="description" content="Easily convert your text between uppercase, lowercase, title case, sentence case, alternating case, and inverse case with our free online tool.">
+
+    <!-- Google Fonts Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- Custom styles for this tool's specific elements -->
+    <style>
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .text-stats {
+            margin-top: -0.5rem;
+            margin-bottom: 1.5rem;
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--text-muted-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1><a href="/">Multi Tool Hub</a></h1>
+        <p>Your one-stop collection of free online utilities</p>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h3>Case Converter</h3>
+            <label for="caseInput">Enter your text:</label>
+            <textarea id="caseInput" rows="8" placeholder="Paste your text here..."></textarea>
+            <div id="textStats" class="text-stats">Words: 0 | Characters: 0</div>
+            
+            <div class="button-grid">
+                <button id="upperBtn">UPPERCASE</button>
+                <button id="lowerBtn">lowercase</button>
+                <button id="titleBtn">Title Case</button>
+                <button id="sentenceBtn">Sentence case</button>
+                <button id="alternatingBtn">aLtErNaTiNg cAsE</button>
+                <button id="inverseBtn">InVeRsE CaSe</button>
+            </div>
+            
+            <div class="button-grid" style="margin-top: 1rem;">
+                <button id="copyBtn">📋 Copy Text</button>
+                <button id="clearBtn" style="background: rgba(255,255,255,0.1);">❌ Clear Text</button>
+            </div>
+
+            <div class="content-section">
+                <h2>About the Case Converter</h2>
+                <p>This tool allows you to transform your text into different letter cases without having to retype everything. It's perfect for writers, editors, and anyone who works with text regularly.</p>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const input = document.getElementById('caseInput');
+            const statsEl = document.getElementById('textStats');
+            const copyBtn = document.getElementById('copyBtn');
+            const clearBtn = document.getElementById('clearBtn');
+
+            // --- Case Conversion Buttons ---
+            document.getElementById('upperBtn').addEventListener('click', () => input.value = input.value.toUpperCase());
+            document.getElementById('lowerBtn').addEventListener('click', () => input.value = input.value.toLowerCase());
+            document.getElementById('titleBtn').addEventListener('click', () => {
+                input.value = input.value.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            });
+            document.getElementById('sentenceBtn').addEventListener('click', () => {
+                input.value = input.value.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase());
+            });
+            document.getElementById('alternatingBtn').addEventListener('click', () => {
+                input.value = input.value.split('').map((char, index) => 
+                    index % 2 === 0 ? char.toLowerCase() : char.toUpperCase()
+                ).join('');
+            });
+            document.getElementById('inverseBtn').addEventListener('click', () => {
+                input.value = input.value.split('').map(char => 
+                    char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+                ).join('');
+            });
+            
+            // --- Utility Buttons ---
+            clearBtn.addEventListener('click', () => {
+                input.value = '';
+                updateStats(); // Reset stats
+            });
+
+            copyBtn.addEventListener('click', () => {
+                if (!input.value) return;
+                input.select();
+                navigator.clipboard.writeText(input.value)
+                    .then(() => {
+                        copyBtn.innerText = '✅ Copied!';
+                        setTimeout(() => { copyBtn.innerText = '📋 Copy Text'; }, 2000);
+                    })
+                    .catch(err => console.error('Failed to copy text: ', err));
+            });
+            
+            // --- Live Stats Update ---
+            input.addEventListener('input', updateStats);
+
+            function updateStats() {
+                const text = input.value;
+                const words = text.match(/\b\w+\b/g)?.length || 0;
+                const characters = text.length;
+                statsEl.innerText = `Words: ${words} | Characters: ${characters}`;
+            }
+
+            // Initial stat update in case there is text on load (e.g., from browser cache)
+            updateStats();
+        });
+    </script>
+</body>
+</html>

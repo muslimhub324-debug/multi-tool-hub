@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Tool Hub - Free Online Tools for Everyday Use</title>
+    <meta name="description" content="A collection of 150+ free and easy-to-use online tools, including calculators, converters, generators, and text utilities for developers, students, and professionals.">
+    
+    <!-- Google Fonts Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Multi Tool Hub</h1>
+        <p>Your one-stop collection of free online utilities</p>
+
+        <!-- Search Bar and Suggestions Container -->
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search for a tool... (e.g., password, color, bmi)">
+            <div id="search-suggestions">
+                <!-- Live search results will appear here -->
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-grid" id="tool-grid">
+            <!-- JavaScript will generate tool cards here -->
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toolGrid = document.getElementById('tool-grid');
+            const searchBar = document.getElementById('search-bar');
+            const suggestionsBox = document.getElementById('search-suggestions');
+
+            // This is your main database of tools. Add new tools here.
+            const toolsData = [
+                {
+                    name: 'Password Generator',
+                    description: 'Create strong, secure, and random passwords instantly.',
+                    url: 'tools/password-generator.html',
+                    keywords: 'security password secure random generator'
+                },
+                {
+                    name: 'BMI Calculator',
+                    description: 'Calculate your Body Mass Index to check your health status.',
+                    url: 'tools/bmi-calculator.html',
+                    keywords: 'health body mass index weight height calculator'
+                },
+                {
+                    name: 'Word Counter',
+                    description: 'Count words, characters, and sentences in your text.',
+                    url: 'tools/word-counter.html',
+                    keywords: 'text character count paragraph sentence tool writer'
+                },
+                 {
+        name: 'Case Converter',
+        description: 'Convert text between uppercase, lowercase, title case, etc.',
+        url: 'tools/case-converter.html',
+        keywords: 'text case converter uppercase lowercase title sentence'
+    },
+    {
+        name: 'JSON Formatter',
+        description: 'Format, validate, and beautify your JSON data with ease.',
+        url: 'tools/json-formatter.html',
+        keywords: 'json format validator beautify developer api data'
+    },
+    {
+    name: 'Lorem Ipsum Generator',
+    description: 'Generate placeholder text with a custom number of paragraphs.',
+    url: 'tools/lorem-ipsum-generator.html',
+    keywords: 'lorem ipsum text placeholder dummy generator design'
+},
+{
+    name: 'Image to Base64 Converter',
+    description: 'Convert images like JPG, PNG into Base64 text strings.',
+    url: 'tools/image-to-base64.html',
+    keywords: 'image base64 converter developer embed data url'
+},
+{
+    name: 'Color Converter',
+    description: 'Convert colors between HEX, RGB, and HSL formats.',
+    url: 'tools/color-converter.html',
+    keywords: 'color hex rgb hsl picker converter design developer',
+    icon: 'fa-solid fa-palette'
+},
+{
+    name: 'MD5 Hash Generator',
+    description: 'Generate the MD5 hash of any string for data integrity checks.',
+    url: 'tools/md5-generator.html',
+    keywords: 'md5 hash generator checksum security developer text',
+    icon: 'fa-solid fa-hashtag'
+},
+{
+    name: 'Age Calculator',
+    description: 'Calculate your exact age in years, months, and days.',
+    url: 'tools/age-calculator.html',
+    keywords: 'age calculator birthday date years months days',
+    icon: 'fa-solid fa-cake-candles'
+},
+{
+    name: 'Random Number Generator',
+    description: 'Generate a random number within a custom range (min/max).',
+    url: 'tools/random-number-generator.html',
+    keywords: 'random number generator integer range picker',
+    icon: 'fa-solid fa-dice'
+},
+{
+    name: 'URL Encoder & Decoder',
+    description: 'Encode or decode strings to make them URL-safe.',
+    url: 'tools/url-encoder-decoder.html',
+    keywords: 'url encode decode percent encoding uri developer',
+    icon: 'fa-solid fa-link'
+},
+{
+    name: 'Base64 Encoder & Decoder',
+    description: 'Encode and decode text using the Base64 scheme.',
+    url: 'tools/base64-encoder-decoder.html',
+    keywords: 'base64 encode decode text string developer binary',
+    icon: 'fa-solid fa-sync'
+},
+{
+    name: 'Text to Slug Converter',
+    description: 'Create a clean and SEO-friendly URL slug from any text.',
+    url: 'tools/text-to-slug.html',
+    keywords: 'text slug url converter seo friendly title link',
+    icon: 'fa-solid fa-anchor'
+},
+{
+    name: 'Duplicate Lines Remover',
+    description: 'Remove duplicate lines from a list of text, leaving only unique lines.',
+    url: 'tools/duplicate-lines-remover.html',
+    keywords: 'duplicate lines remover unique text list clean sort',
+    icon: 'fa-solid fa-stream'
+},
+{
+    name: 'Image Compressor',
+    description: 'Reduce the file size of your JPG and PNG images online.',
+    url: 'tools/image-compressor.html',
+    keywords: 'image compressor compress jpg png optimizer reduce size',
+    icon: 'fa-solid fa-file-image'
+},
+{
+    name: 'Tip Calculator',
+    description: 'Calculate the tip and split the bill among friends.',
+    url: 'tools/tip-calculator.html',
+    keywords: 'tip calculator bill split restaurant finance money',
+    icon: 'fa-solid fa-dollar-sign'
+},
+{
+    name: 'Countdown Timer',
+    description: 'Set a customizable timer that counts down to zero.',
+    url: 'tools/countdown-timer.html',
+    keywords: 'countdown timer clock stopwatch pomodoro time',
+    icon: 'fa-solid fa-hourglass-half'
+},
+{
+    name: 'Markdown Preview',
+    description: 'Write Markdown text and see the rendered HTML in real-time.',
+    url: 'tools/markdown-preview.html',
+    keywords: 'markdown preview editor converter html developer writer',
+    icon: 'fa-brands fa-markdown'
+}
+                // Add more tools here...
+                // Example:
+                // {
+                //     name: 'Color Converter',
+                //     description: 'Convert colors between HEX, RGB, and HSL formats.',
+                //     url: 'tools/color-converter.html',
+                //     keywords: 'color hex rgb hsl converter design developer'
+                // }
+            ];
+
+            // Function to display tools on the homepage grid
+            const displayTools = (tools) => {
+                toolGrid.innerHTML = ''; // Clear previous results
+                tools.forEach(tool => {
+                    const cardLink = document.createElement('a');
+                    cardLink.href = tool.url;
+                    cardLink.className = 'tool-card-link';
+
+                    const card = document.createElement('div');
+                    card.className = 'tool-card';
+                    card.innerHTML = `
+                        <h2>${tool.name}</h2>
+                        <p>${tool.description}</p>
+                    `;
+                    
+                    cardLink.appendChild(card);
+                    toolGrid.appendChild(cardLink);
+                });
+            };
+
+            // Initial display of all tools
+            displayTools(toolsData);
+
+            // --- Live Search and Suggestions Logic ---
+            searchBar.addEventListener('input', () => {
+                const query = searchBar.value.toLowerCase();
+                
+                const filteredTools = toolsData.filter(tool => 
+                    tool.name.toLowerCase().includes(query) ||
+                    tool.description.toLowerCase().includes(query) ||
+                    tool.keywords.toLowerCase().includes(query)
+                );
+
+                displayTools(filteredTools);
+
+                suggestionsBox.innerHTML = '';
+                if (query.length > 0 && filteredTools.length > 0) {
+                    suggestionsBox.style.display = 'block';
+                    filteredTools.slice(0, 5).forEach(tool => { // Show max 5 suggestions
+                        const suggestionItem = document.createElement('a');
+                        suggestionItem.href = tool.url;
+                        suggestionItem.textContent = tool.name;
+                        suggestionsBox.appendChild(suggestionItem);
+                    });
+                } else {
+                    suggestionsBox.style.display = 'none';
+                }
+            });
+            
+            document.addEventListener('click', (event) => {
+                if (!searchBar.contains(event.target)) {
+                    suggestionsBox.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

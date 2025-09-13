@@ -1,0 +1,178 @@
+/* --- "Liquid Gold" Animated Theme --- */
+:root {
+    --bg-color: #0c0a1a; /* Even Deeper Indigo/Black */
+    --primary-glow: #FFD700; /* Bright Gold */
+    --secondary-glow: #DAA520; /* GoldenRod */
+    --accent-glow: #F0A500; /* Amber/Gold */
+    --text-color: #f5f5f5;
+    --text-muted-color: #a9a9b1;
+    --card-bg: rgba(28, 21, 57, 0.4); /* Slightly more transparent */
+    --card-border: rgba(255, 215, 0, 0.2);
+    --hover-border: rgba(255, 215, 0, 0.6);
+}
+
+/* --- General & Body Styles --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- NEW: Advanced "Liquid Gradient" Animated Background --- */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+    /* We will use a pseudo-element for the gradient animation */
+}
+.background-animation::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle at 20% 25%, var(--primary-glow), transparent 40%),
+                radial-gradient(circle at 80% 15%, var(--secondary-glow), transparent 40%),
+                radial-gradient(circle at 50% 80%, var(--accent-glow), transparent 40%);
+    background-size: 300% 300%;
+    filter: blur(80px); /* This creates the soft, liquid effect */
+    animation: liquid-move 20s ease-in-out infinite alternate;
+}
+
+@keyframes liquid-move {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.background-animation .icon {
+    position: absolute;
+    font-size: 2.5rem;
+    color: rgba(255, 215, 0, 0.08); /* Slightly more subtle icons */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    animation: float 25s linear infinite;
+    user-select: none;
+    bottom: -150px;
+}
+
+@keyframes float {
+    from { transform: translateY(0) rotate(0deg); }
+    to { transform: translateY(-120vh) rotate(360deg); }
+}
+.page-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- All other styles remain the same --- */
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+a { color: var(--primary-glow); text-decoration: none; }
+
+.header {
+    background: transparent; padding: 4rem 1rem; text-align: center;
+    border-bottom: 1px solid var(--card-border);
+}
+.header h1 {
+    font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem;
+    background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: text-glow 2s ease-in-out infinite alternate;
+}
+@keyframes text-glow {
+    from { text-shadow: 0 0 15px var(--primary-glow), 0 0 25px var(--primary-glow); }
+    to { text-shadow: 0 0 15px var(--secondary-glow), 0 0 25px var(--secondary-glow); }
+}
+.header p { font-size: 1.25rem; color: var(--text-muted-color); }
+
+.search-container { margin: 2.5rem auto 0; max-width: 600px; position: relative; }
+#search-bar {
+    width: 100%; padding: 1rem 1.5rem; font-size: 1.1rem;
+    border-radius: 50px; border: 1px solid var(--card-border);
+    background-color: var(--card-bg); color: var(--text-color);
+    outline: none; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+#search-bar:focus {
+    border-color: var(--hover-border);
+    box-shadow: 0 0 20px var(--primary-glow);
+}
+#search-suggestions {
+    position: absolute; top: 110%; left: 0; width: 100%;
+    background-color: var(--card-bg); border-radius: 12px;
+    max-height: 300px; overflow-y: auto; display: none;
+    z-index: 100; border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+#search-suggestions a { display: block; padding: 0.8rem 1.5rem; color: var(--text-color); transition: all 0.2s ease; }
+#search-suggestions a:hover { background-color: var(--primary-glow); color: var(--bg-color); }
+
+.tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+}
+.tool-card-link { text-decoration: none; }
+.tool-card {
+    background-color: var(--card-bg); border-radius: 16px; padding: 2rem;
+    text-align: left; height: 100%; border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.tool-card h2 { font-size: 1.5rem; color: var(--text-color); margin-bottom: 0.75rem; font-weight: 700; }
+.tool-card p { font-size: 1rem; color: var(--text-muted-color); }
+.tool-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--hover-border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.tool-page-header { background: transparent; padding: 2rem 1rem; text-align: center; }
+.tool-page-header .back-link { display: inline-block; color: var(--text-muted-color); margin-bottom: 1rem; transition: color 0.2s ease; }
+.tool-page-header .back-link:hover { color: var(--primary-glow); }
+.tool-container {
+    background-color: var(--card-bg); padding: 2.5rem; border-radius: 16px;
+    max-width: 700px; margin: 1rem auto 3rem; border: 1px solid var(--card-border);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.tool-container h3 {
+    font-size: 2rem; font-weight: 700; margin-bottom: 2rem; text-align: center;
+    background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.tool-container label { display: block; margin-bottom: 0.5rem; color: var(--text-muted-color); }
+.tool-container input, .tool-container textarea, .tool-container select, .tool-container button {
+    width: 100%; margin-bottom: 1.5rem; padding: 0.9rem 1rem;
+    border-radius: 8px; font-size: 1rem; border: 1px solid var(--card-border);
+}
+.tool-container input, .tool-container textarea, .tool-container select {
+    background-color: #0c0a1a; color: var(--text-color);
+}
+.tool-container button {
+    background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+    color: #0c0a1a; font-weight: 700; cursor: pointer; border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.tool-container button:hover {
+    transform: scale(1.03); box-shadow: 0 0 25px var(--primary-glow);
+}
+.result-box {
+    background-color: #0c0a1a; padding: 1.5rem; border-radius: 8px;
+    min-height: 50px; word-wrap: break-word; font-size: 1.1rem;
+    margin-top: 1rem; white-space: pre-wrap; user-select: all;
+    border-left: 4px solid var(--primary-glow); transition: all 0.3s ease;
+}
+.content-section {
+    margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--card-border); text-align: left;
+}
+.content-section h2 { color: var(--secondary-glow); margin-bottom: 1rem; }
+.content-section p, .content-section li { margin-bottom: 1rem; opacity: 0.9; }
+
+@media (max-width: 600px) {
+    .header h1 { font-size: 2.5rem; }
+    .tool-container { padding: 1.5rem; }
+}

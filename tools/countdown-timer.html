@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer | Multi Tool Hub</title>
+    <meta name="description" content="Set a countdown timer for any event, task, or deadline. Easy to use, with start, pause, and reset controls.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .timer-display {
+            font-size: 5rem;
+            font-weight: 800;
+            text-align: center;
+            color: var(--primary-glow);
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 5px;
+            margin: 2rem 0;
+        }
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .button-group {
+            display: flex;
+            gap: 1rem;
+        }
+        .button-group button {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>Countdown Timer</h3>
+                <div class="input-grid">
+                    <div>
+                        <label for="hours">Hours</label>
+                        <input type="number" id="hours" min="0" value="0">
+                    </div>
+                    <div>
+                        <label for="minutes">Minutes</label>
+                        <input type="number" id="minutes" min="0" value="10">
+                    </div>
+                    <div>
+                        <label for="seconds">Seconds</label>
+                        <input type="number" id="seconds" min="0" value="0">
+                    </div>
+                </div>
+                <div id="timerDisplay" class="timer-display">10:00</div>
+                <div class="button-group">
+                    <button id="startBtn">Start</button>
+                    <button id="pauseBtn" class="button-secondary">Pause</button>
+                    <button id="resetBtn" class="button-secondary">Reset</button>
+                </div>
+                <div class="content-section">
+                    <h2>Stay Focused</h2>
+                    <p>Use our countdown timer to manage your time effectively. Set it for work sessions (like the Pomodoro Technique), workouts, cooking, or any other task that requires a specific time limit.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ...
+            
+            const hoursInput = document.getElementById('hours');
+            const minutesInput = document.getElementById('minutes');
+            const secondsInput = document.getElementById('seconds');
+            const timerDisplay = document.getElementById('timerDisplay');
+            const startBtn = document.getElementById('startBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const resetBtn = document.getElementById('resetBtn');
+
+            let countdown;
+            let totalSeconds;
+
+            function updateDisplay(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            }
+
+            function startTimer() {
+                clearInterval(countdown);
+                
+                const h = parseInt(hoursInput.value) || 0;
+                const m = parseInt(minutesInput.value) || 0;
+                const s = parseInt(secondsInput.value) || 0;
+                totalSeconds = h * 3600 + m * 60 + s;
+
+                if (totalSeconds <= 0) return;
+
+                countdown = setInterval(() => {
+                    totalSeconds--;
+                    updateDisplay(totalSeconds);
+
+                    if (totalSeconds <= 0) {
+                        clearInterval(countdown);
+                        timerDisplay.textContent = "Time's up!";
+                        // Optional: play a sound
+                    }
+                }, 1000);
+            }
+            
+            function pauseTimer() {
+                clearInterval(countdown);
+            }
+
+            function resetTimer() {
+                clearInterval(countdown);
+                const h = parseInt(hoursInput.value) || 0;
+                const m = parseInt(minutesInput.value) || 0;
+                const s = parseInt(secondsInput.value) || 0;
+                totalSeconds = h * 3600 + m * 60 + s;
+                updateDisplay(m*60+s); // show initial time
+            }
+            
+            startBtn.addEventListener('click', startTimer);
+            pauseBtn.addEventListener('click', pauseTimer);
+            resetBtn.addEventListener('click', resetTimer);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Slug Converter | Multi Tool Hub</title>
+    <meta name="description" content="Convert any text or title into a clean, URL-friendly, and SEO-friendly slug. Removes special characters and replaces spaces with hyphens.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .result-container {
+            position: relative;
+        }
+        .result-box-input {
+            width: 100%; padding: 1rem; border-radius: 8px; font-size: 1.1rem;
+            border: 1px solid var(--card-border); background-color: var(--bg-color);
+            color: var(--text-color); padding-right: 60px; user-select: all;
+        }
+        .copy-btn {
+            position: absolute; right: 10px; top: 50%;
+            transform: translateY(-50%); background: none; border: none;
+            color: var(--text-muted-color); cursor: pointer; font-size: 1.5rem;
+            padding: 5px; transition: color 0.2s ease;
+        }
+        .copy-btn:hover { color: var(--primary-glow); }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>Text to Slug Converter</h3>
+                <label for="textInput">Enter your title or text:</label>
+                <input type="text" id="textInput" placeholder="e.g., My Awesome Blog Post Title!">
+                
+                <label for="slugOutput">SEO-Friendly Slug Output:</label>
+                <div class="result-container">
+                    <input type="text" id="slugOutput" class="result-box-input" readonly>
+                    <button id="copyBtn" class="copy-btn" title="Copy to Clipboard">📋</button>
+                </div>
+
+                <div class="content-section">
+                    <h2>What is a Slug?</h2>
+                    <p>In web development, a slug is the part of a URL which identifies a particular page on a website in an easy-to-read form. It's usually a lowercase, hyphen-separated version of the page title, which is good for both users and search engines (SEO).</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ...
+
+            const textInput = document.getElementById('textInput');
+            const slugOutput = document.getElementById('slugOutput');
+            const copyBtn = document.getElementById('copyBtn');
+
+            function convertToSlug(text) {
+                return text
+                    .toLowerCase()
+                    .trim()
+                    .replace(/[^\w\s-]/g, '') // Remove non-word chars
+                    .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with a single hyphen
+                    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+            }
+
+            textInput.addEventListener('input', () => {
+                slugOutput.value = convertToSlug(textInput.value);
+            });
+
+            copyBtn.addEventListener('click', () => {
+                if (!slugOutput.value) {
+                    alert("Please enter some text to generate a slug!");
+                    return;
+                }
+                navigator.clipboard.writeText(slugOutput.value).then(() => {
+                    copyBtn.innerText = '✅';
+                    setTimeout(() => { copyBtn.innerText = '📋'; }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

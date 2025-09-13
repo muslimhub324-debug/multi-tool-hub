@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Preview | Multi Tool Hub</title>
+    <meta name="description" content="Write Markdown text and see the rendered HTML preview in real-time. A perfect tool for developers and writers.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            min-height: 500px;
+        }
+        .editor, .preview {
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 1rem;
+            height: 100%;
+        }
+        .editor textarea {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            resize: none;
+            outline: none;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .preview {
+            background-color: var(--bg-color);
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation" id="background-animation"></div>
+    <div class="page-content">
+        <header class="tool-page-header">
+            <a href="/" class="back-link">&larr; Back to All Tools</a>
+        </header>
+        <main class="container">
+            <div class="tool-container">
+                <h3>Markdown Preview</h3>
+                <div class="editor-container">
+                    <div class="editor">
+                        <textarea id="markdownInput" placeholder="Type your Markdown here... e.g., # Hello World"></textarea>
+                    </div>
+                    <div class="preview" id="htmlPreview"></div>
+                </div>
+                <div class="content-section">
+                    <h2>What is Markdown?</h2>
+                    <p>Markdown is a lightweight markup language with plain-text-formatting syntax. It's often used to format README files, for writing messages in online discussion forums, and to create rich text using a plain text editor.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- IMPORTANT: External library for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Shared Background Animation
+            // ...
+            
+            const markdownInput = document.getElementById('markdownInput');
+            const htmlPreview = document.getElementById('htmlPreview');
+
+            function updatePreview() {
+                htmlPreview.innerHTML = marked.parse(markdownInput.value);
+            }
+
+            markdownInput.addEventListener('input', updatePreview);
+
+            // Initial example text
+            markdownInput.value = "# Hello, Markdown!\n\nThis is a real-time Markdown previewer.\n\n- Write Markdown on the left.\n- See the HTML output on the right.\n\n```javascript\nconsole.log('Happy coding!');\n```";
+            updatePreview();
+        });
+    </script>
+</body>
+</html>
