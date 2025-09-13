@@ -6,10 +6,16 @@
     <title>Multi Tool Hub - Free Online Tools for Everyday Use</title>
     <meta name="description" content="A collection of 150+ free and easy-to-use online tools, including calculators, converters, generators, and text utilities for developers, students, and professionals.">
     
+    <!-- Google Site Verification Tag (এখানে যোগ করা হয়েছে) -->
+    <meta name="google-site-verification" content="1ThRUpYvubFBEiXAjPdBi0TunaOuMYXXIuMhpxXsVrM" />
+
     <!-- Google Fonts Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -42,158 +48,48 @@
 
             // This is your main database of tools. Add new tools here.
             const toolsData = [
-                {
-                    name: 'Password Generator',
-                    description: 'Create strong, secure, and random passwords instantly.',
-                    url: 'tools/password-generator.html',
-                    keywords: 'security password secure random generator'
-                },
-                {
-                    name: 'BMI Calculator',
-                    description: 'Calculate your Body Mass Index to check your health status.',
-                    url: 'tools/bmi-calculator.html',
-                    keywords: 'health body mass index weight height calculator'
-                },
-                {
-                    name: 'Word Counter',
-                    description: 'Count words, characters, and sentences in your text.',
-                    url: 'tools/word-counter.html',
-                    keywords: 'text character count paragraph sentence tool writer'
-                },
-                 {
-        name: 'Case Converter',
-        description: 'Convert text between uppercase, lowercase, title case, etc.',
-        url: 'tools/case-converter.html',
-        keywords: 'text case converter uppercase lowercase title sentence'
-    },
-    {
-        name: 'JSON Formatter',
-        description: 'Format, validate, and beautify your JSON data with ease.',
-        url: 'tools/json-formatter.html',
-        keywords: 'json format validator beautify developer api data'
-    },
-    {
-    name: 'Lorem Ipsum Generator',
-    description: 'Generate placeholder text with a custom number of paragraphs.',
-    url: 'tools/lorem-ipsum-generator.html',
-    keywords: 'lorem ipsum text placeholder dummy generator design'
-},
-{
-    name: 'Image to Base64 Converter',
-    description: 'Convert images like JPG, PNG into Base64 text strings.',
-    url: 'tools/image-to-base64.html',
-    keywords: 'image base64 converter developer embed data url'
-},
-{
-    name: 'Color Converter',
-    description: 'Convert colors between HEX, RGB, and HSL formats.',
-    url: 'tools/color-converter.html',
-    keywords: 'color hex rgb hsl picker converter design developer',
-    icon: 'fa-solid fa-palette'
-},
-{
-    name: 'MD5 Hash Generator',
-    description: 'Generate the MD5 hash of any string for data integrity checks.',
-    url: 'tools/md5-generator.html',
-    keywords: 'md5 hash generator checksum security developer text',
-    icon: 'fa-solid fa-hashtag'
-},
-{
-    name: 'Age Calculator',
-    description: 'Calculate your exact age in years, months, and days.',
-    url: 'tools/age-calculator.html',
-    keywords: 'age calculator birthday date years months days',
-    icon: 'fa-solid fa-cake-candles'
-},
-{
-    name: 'Random Number Generator',
-    description: 'Generate a random number within a custom range (min/max).',
-    url: 'tools/random-number-generator.html',
-    keywords: 'random number generator integer range picker',
-    icon: 'fa-solid fa-dice'
-},
-{
-    name: 'URL Encoder & Decoder',
-    description: 'Encode or decode strings to make them URL-safe.',
-    url: 'tools/url-encoder-decoder.html',
-    keywords: 'url encode decode percent encoding uri developer',
-    icon: 'fa-solid fa-link'
-},
-{
-    name: 'Base64 Encoder & Decoder',
-    description: 'Encode and decode text using the Base64 scheme.',
-    url: 'tools/base64-encoder-decoder.html',
-    keywords: 'base64 encode decode text string developer binary',
-    icon: 'fa-solid fa-sync'
-},
-{
-    name: 'Text to Slug Converter',
-    description: 'Create a clean and SEO-friendly URL slug from any text.',
-    url: 'tools/text-to-slug.html',
-    keywords: 'text slug url converter seo friendly title link',
-    icon: 'fa-solid fa-anchor'
-},
-{
-    name: 'Duplicate Lines Remover',
-    description: 'Remove duplicate lines from a list of text, leaving only unique lines.',
-    url: 'tools/duplicate-lines-remover.html',
-    keywords: 'duplicate lines remover unique text list clean sort',
-    icon: 'fa-solid fa-stream'
-},
-{
-    name: 'Image Compressor',
-    description: 'Reduce the file size of your JPG and PNG images online.',
-    url: 'tools/image-compressor.html',
-    keywords: 'image compressor compress jpg png optimizer reduce size',
-    icon: 'fa-solid fa-file-image'
-},
-{
-    name: 'Tip Calculator',
-    description: 'Calculate the tip and split the bill among friends.',
-    url: 'tools/tip-calculator.html',
-    keywords: 'tip calculator bill split restaurant finance money',
-    icon: 'fa-solid fa-dollar-sign'
-},
-{
-    name: 'Countdown Timer',
-    description: 'Set a customizable timer that counts down to zero.',
-    url: 'tools/countdown-timer.html',
-    keywords: 'countdown timer clock stopwatch pomodoro time',
-    icon: 'fa-solid fa-hourglass-half'
-},
-{
-    name: 'Markdown Preview',
-    description: 'Write Markdown text and see the rendered HTML in real-time.',
-    url: 'tools/markdown-preview.html',
-    keywords: 'markdown preview editor converter html developer writer',
-    icon: 'fa-brands fa-markdown'
-}
-                // Add more tools here...
-                // Example:
-                // {
-                //     name: 'Color Converter',
-                //     description: 'Convert colors between HEX, RGB, and HSL formats.',
-                //     url: 'tools/color-converter.html',
-                //     keywords: 'color hex rgb hsl converter design developer'
-                // }
+                { name: 'Password Generator', description: 'Create strong, secure, and random passwords instantly.', url: 'tools/password-generator.html', keywords: 'security password secure random generator', icon: 'fa-solid fa-key' },
+                { name: 'BMI Calculator', description: 'Calculate your Body Mass Index to check your health status.', url: 'tools/bmi-calculator.html', keywords: 'health body mass index weight height calculator', icon: 'fa-solid fa-calculator' },
+                { name: 'Word Counter', description: 'Count words, characters, and sentences in your text.', url: 'tools/word-counter.html', keywords: 'text character count paragraph sentence tool writer', icon: 'fa-solid fa-file-word' },
+                { name: 'Case Converter', description: 'Convert text between uppercase, lowercase, title case, etc.', url: 'tools/case-converter.html', keywords: 'text case converter uppercase lowercase title sentence', icon: 'fa-solid fa-font' },
+                { name: 'JSON Formatter', description: 'Format, validate, and beautify your JSON data with ease.', url: 'tools/json-formatter.html', keywords: 'json format validator beautify developer api data', icon: 'fa-solid fa-code' },
+                { name: 'QR Code Generator', description: 'Generate high-quality QR codes from any text or URL.', url: 'tools/qr-code-generator.html', keywords: 'qr code generator url text image mobile scan', icon: 'fa-solid fa-qrcode' },
+                { name: 'Lorem Ipsum Generator', description: 'Generate placeholder text with a custom number of paragraphs.', url: 'tools/lorem-ipsum-generator.html', keywords: 'lorem ipsum text placeholder dummy generator design', icon: 'fa-solid fa-paragraph' },
+                { name: 'Image to Base64 Converter', description: 'Convert images like JPG, PNG into Base64 text strings.', url: 'tools/image-to-base64.html', keywords: 'image base64 converter developer embed data url', icon: 'fa-solid fa-image' },
+                { name: 'Color Converter', description: 'Convert colors between HEX, RGB, and HSL formats.', url: 'tools/color-converter.html', keywords: 'color hex rgb hsl picker converter design developer', icon: 'fa-solid fa-palette' },
+                { name: 'MD5 Hash Generator', description: 'Generate the MD5 hash of any string for data integrity checks.', url: 'tools/md5-generator.html', keywords: 'md5 hash generator checksum security developer text', icon: 'fa-solid fa-hashtag' },
+                { name: 'Age Calculator', description: 'Calculate your exact age in years, months, and days.', url: 'tools/age-calculator.html', keywords: 'age calculator birthday date years months days', icon: 'fa-solid fa-cake-candles' },
+                { name: 'Random Number Generator', description: 'Generate a random number within a custom range (min/max).', url: 'tools/random-number-generator.html', keywords: 'random number generator integer range picker', icon: 'fa-solid fa-dice' },
+                { name: 'URL Encoder & Decoder', description: 'Encode or decode strings to make them URL-safe.', url: 'tools/url-encoder-decoder.html', keywords: 'url encode decode percent encoding uri developer', icon: 'fa-solid fa-link' },
+                { name: 'Base64 Encoder & Decoder', description: 'Encode and decode text using the Base64 scheme.', url: 'tools/base64-encoder-decoder.html', keywords: 'base64 encode decode text string developer binary', icon: 'fa-solid fa-sync' },
+                { name: 'Text to Slug Converter', description: 'Create a clean and SEO-friendly URL slug from any text.', url: 'tools/text-to-slug.html', keywords: 'text slug url converter seo friendly title link', icon: 'fa-solid fa-anchor' },
+                { name: 'Duplicate Lines Remover', description: 'Remove duplicate lines from a list of text, leaving only unique lines.', url: 'tools/duplicate-lines-remover.html', keywords: 'duplicate lines remover unique text list clean sort', icon: 'fa-solid fa-stream' },
+                { name: 'Image Compressor', description: 'Reduce the file size of your JPG and PNG images online.', url: 'tools/image-compressor.html', keywords: 'image compressor compress jpg png optimizer reduce size', icon: 'fa-solid fa-file-image' },
+                { name: 'Tip Calculator', description: 'Calculate the tip and split the bill among friends.', url: 'tools/tip-calculator.html', keywords: 'tip calculator bill split restaurant finance money', icon: 'fa-solid fa-dollar-sign' },
+                { name: 'Countdown Timer', description: 'Set a customizable timer that counts down to zero.', url: 'tools/countdown-timer.html', keywords: 'countdown timer clock stopwatch pomodoro time', icon: 'fa-solid fa-hourglass-half' },
+                { name: 'Markdown Preview', description: 'Write Markdown text and see the rendered HTML in real-time.', url: 'tools/markdown-preview.html', keywords: 'markdown preview editor converter html developer writer', icon: 'fa-brands fa-markdown' }
             ];
 
-            // Function to display tools on the homepage grid
+            // --- Function to display tools on the homepage grid ---
             const displayTools = (tools) => {
                 toolGrid.innerHTML = ''; // Clear previous results
+                if (tools.length === 0) {
+                    toolGrid.innerHTML = `<p style="font-weight: 700; text-align: center; grid-column: 1 / -1;">No tools found matching your search.</p>`;
+                    return;
+                }
                 tools.forEach(tool => {
                     const cardLink = document.createElement('a');
                     cardLink.href = tool.url;
                     cardLink.className = 'tool-card-link';
 
-                    const card = document.createElement('div');
-                    card.className = 'tool-card';
-                    card.innerHTML = `
-                        <h2>${tool.name}</h2>
-                        <p>${tool.description}</p>
+                    // Updated card HTML to include the icon
+                    cardLink.innerHTML = `
+                        <div class="tool-card">
+                            <h2><i class="${tool.icon}"></i> ${tool.name}</h2>
+                            <p>${tool.description}</p>
+                        </div>
                     `;
                     
-                    cardLink.appendChild(card);
                     toolGrid.appendChild(cardLink);
                 });
             };
@@ -208,7 +104,7 @@
                 const filteredTools = toolsData.filter(tool => 
                     tool.name.toLowerCase().includes(query) ||
                     tool.description.toLowerCase().includes(query) ||
-                    tool.keywords.toLowerCase().includes(query)
+                    (tool.keywords && tool.keywords.toLowerCase().includes(query))
                 );
 
                 displayTools(filteredTools);
@@ -219,7 +115,7 @@
                     filteredTools.slice(0, 5).forEach(tool => { // Show max 5 suggestions
                         const suggestionItem = document.createElement('a');
                         suggestionItem.href = tool.url;
-                        suggestionItem.textContent = tool.name;
+                        suggestionItem.innerHTML = `<i class="${tool.icon}" style="margin-right: 10px; width: 15px;"></i> ${tool.name}`;
                         suggestionsBox.appendChild(suggestionItem);
                     });
                 } else {
@@ -228,7 +124,8 @@
             });
             
             document.addEventListener('click', (event) => {
-                if (!searchBar.contains(event.target)) {
+                const isClickInsideSearch = searchBar.contains(event.target) || suggestionsBox.contains(event.target);
+                if (!isClickInsideSearch) {
                     suggestionsBox.style.display = 'none';
                 }
             });
